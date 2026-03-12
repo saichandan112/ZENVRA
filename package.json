@@ -1,0 +1,28 @@
+{
+  "name": "zenvra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Web build complete'",
+    "cap:sync": "npx cap sync android",
+    "cap:build": "cd android && ./gradlew assembleDebug",
+    "apk": "npm run build && npm run cap:sync && npm run cap:build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:37699/git/saichandan112/ZENVRA"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor-community/sqlite": "^8.0.1",
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
