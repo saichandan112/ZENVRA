@@ -1,0 +1,15 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║           ZENVRA DATABASE — REQUIREMENTS                  ║
+# ╚══════════════════════════════════════════════════════════╝
+#
+# Install all with one command (paste in VS Code terminal):
+#
+#   pip install -r requirements.txt
+#
+# ─────────────────────────────────────────────────────────────
+
+flask>=3.0.0          # Web server & REST API
+flask-cors>=4.0.0     # Allow browser to call API from HTML files
+
+# ── Optional but recommended ──────────────────────────────────
+# rich>=13.0           # Beautiful terminal output (pip install rich)

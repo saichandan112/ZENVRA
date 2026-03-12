@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ZENVRA — Mind, Body & Soul</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#F6F1E9;--bg2:#EDE7DC;--bg3:#E3DBCF;
+  --surface:#FDFAF5;--surface2:#F8F3EA;
+  --ink:#1C1914;--ink2:#3A3528;--ink3:#6E6657;
+  --muted:rgba(28,25,20,.38);
+  --border:rgba(28,25,20,.09);--border2:rgba(28,25,20,.055);
+  --gold:#B8935A;--gold2:#D4AF72;--gold-bg:rgba(184,147,90,.09);--gold-bd:rgba(184,147,90,.22);
+  --sage:#6A8C5F;--sage-bg:rgba(106,140,95,.09);--sage-bd:rgba(106,140,95,.22);
+  --rose:#B86050;--rose-bg:rgba(184,96,80,.09);--rose-bd:rgba(184,96,80,.22);
+  --sky:#4E80A0;--sky-bg:rgba(78,128,160,.09);--sky-bd:rgba(78,128,160,.22);
+  --ember:#C4703A;--ember-bg:rgba(196,112,58,.09);--ember-bd:rgba(196,112,58,.22);
+  --plum:#7A5C8A;--plum-bg:rgba(122,92,138,.09);
+  --ff-h:'Playfair Display',Georgia,serif;
+  --ff-d:'Cormorant Garamond',Georgia,serif;
+  --ff-t:'Tenor Sans',sans-serif;
+  --ff-b:'Jost',sans-serif;
+  --r:20px;--rs:14px;--rxs:9px;
+  --sh:0 2px 20px rgba(28,25,20,.07);--sh-lg:0 8px 40px rgba(28,25,20,.11);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--ff-b);min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.55;}
+*{position:relative;z-index:1;}
+.shell{max-width:430px;margin:0 auto;min-height:100dvh;background:var(--bg);box-shadow:0 0 80px rgba(28,25,20,.07);display:flex;flex-direction:column;}
+
+/* STATUS */
+.statusbar{padding:14px 24px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.sb-time{font-family:var(--ff-b);font-size:11px;font-weight:500;color:var(--muted);}
+.sb-brand{font-family:var(--ff-d);font-size:14px;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--gold);}
+
+/* SCREENS */
+.screen{display:none;flex-direction:column;flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:92px;}
+.screen.active{display:flex;}
+.screen::-webkit-scrollbar{display:none;}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(246,241,233,.96);border-top:1px solid var(--border2);padding:8px 0 20px;display:flex;justify-content:space-around;z-index:200;backdrop-filter:blur(20px);}
+.nb{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 6px;border-radius:10px;transition:all .2s;min-width:44px;}
+.nb .ni{font-size:18px;opacity:.25;transition:all .2s;}
+.nb .nl{font-size:8px;color:var(--muted);font-family:var(--ff-t);letter-spacing:.8px;text-transform:uppercase;transition:all .2s;}
+.nb.active .ni{opacity:1;}
+.nb.active .nl{color:var(--gold);}
+.nb.active{background:var(--gold-bg);}
+
+/* TYPOGRAPHY */
+.hero-head{font-family:var(--ff-h);font-size:38px;font-weight:400;letter-spacing:-.5px;line-height:1.05;}
+.hero-head em{font-style:italic;color:var(--gold);}
+.sec-head{font-family:var(--ff-d);font-size:24px;font-weight:400;letter-spacing:-.3px;}
+.sec-head em{font-style:italic;color:var(--gold);}
+.xs-label{font-family:var(--ff-t);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.body-sm{font-family:var(--ff-b);font-size:13px;font-weight:300;color:var(--ink3);line-height:1.65;}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:20px;}
+.card-sm{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rs);padding:14px;}
+.card-ink{background:var(--ink);border-radius:var(--r);padding:22px;position:relative;overflow:hidden;}
+.card-ink::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(184,147,90,.18),transparent);pointer-events:none;}
+
+/* BUTTONS */
+.btn-ink{background:var(--ink);color:var(--surface);border:none;padding:16px 24px;border-radius:100px;font-family:var(--ff-t);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-ink:hover{background:var(--ink2);transform:translateY(-1px);box-shadow:0 6px 24px rgba(28,25,20,.18);}
+.btn-ink:active{transform:scale(.98);}
+.btn-gold{background:var(--gold);color:#fff;border:none;padding:10px 20px;border-radius:100px;font-family:var(--ff-t);font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-gold:hover{background:var(--gold2);}
+.btn-outline{background:transparent;color:var(--ink2);border:1px solid var(--border);padding:10px 18px;border-radius:100px;font-family:var(--ff-b);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost{background:none;border:none;font-family:var(--ff-b);font-size:12px;font-weight:400;color:var(--muted);cursor:pointer;padding:8px;transition:color .2s;}
+.btn-ghost:hover{color:var(--ink);}
+
+/* INPUT */
+.inp{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;font-family:var(--ff-d);font-size:15px;font-weight:300;color:var(--ink);width:100%;outline:none;transition:border-color .2s;}
+.inp:focus{border-color:var(--gold);background:var(--surface);}
+.inp::placeholder{color:var(--muted);font-style:italic;}
+.inp-label{font-family:var(--ff-t);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
+
+/* TOGGLE */
+.tog{position:relative;width:44px;height:24px;flex-shrink:0;}
+.tog input{display:none;}
+.tog-track{position:absolute;inset:0;background:var(--bg3);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .3s;}
+.tog input:checked+.tog-track{background:var(--gold);border-color:var(--gold);}
+.tog-track::after{content:'';position:absolute;left:3px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:#fff;border-radius:50%;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.15);}
+.tog input:checked+.tog-track::after{left:23px;}
+
+/* PROGRESS BAR */
+.pbar{height:4px;background:var(--bg3);border-radius:100px;overflow:hidden;}
+.pbar-fill{height:100%;border-radius:100px;transition:width .8s cubic-bezier(.34,1.2,.64,1);}
+
+/* TOAST */
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--surface);padding:12px 22px;border-radius:100px;font-family:var(--ff-b);font-size:13px;font-weight:500;z-index:9000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:340px;text-align:center;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* NOTIFICATION BANNER */
+.notif{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-120%);width:100%;max-width:430px;background:var(--ink);padding:16px 20px 18px;display:flex;align-items:flex-start;gap:12px;z-index:8000;box-shadow:var(--sh-lg);transition:transform .45s cubic-bezier(.34,1.2,.64,1);}
+.notif.show{transform:translateX(-50%) translateY(0);}
+.notif-icon{width:40px;height:40px;border-radius:12px;background:rgba(184,147,90,.15);border:1px solid rgba(184,147,90,.28);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.notif-body{flex:1;}
+.notif-app{font-family:var(--ff-t);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:3px;}
+.notif-title{font-family:var(--ff-d);font-size:15px;font-weight:400;font-style:italic;color:rgba(253,250,246,.92);line-height:1.35;}
+.notif-sub{font-family:var(--ff-b);font-size:11px;color:rgba(255,255,255,.38);margin-top:3px;font-weight:300;}
+.notif-close{font-size:15px;color:rgba(255,255,255,.28);cursor:pointer;padding:2px 4px;flex-shrink:0;}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(28,25,20,.45);z-index:500;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(5px);}
+.modal-bg.open{display:flex;}
+.modal-sheet{width:100%;max-width:430px;background:var(--surface);border-radius:28px 28px 0 0;padding:28px 24px 44px;max-height:88vh;overflow-y:auto;animation:slideUp .38s cubic-bezier(.34,1.2,.64,1);}
+.modal-sheet::-webkit-scrollbar{display:none;}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-handle{width:36px;height:4px;background:var(--bg3);border-radius:2px;margin:0 auto 22px;}
+.modal-title{font-family:var(--ff-h);font-size:28px;font-weight:400;letter-spacing:-.5px;margin-bottom:18px;}
+.modal-title em{font-style:italic;color:var(--gold);}
+
+/* LOCKGATE */
+.lockgate{position:fixed;inset:0;background:rgba(28,25,20,.92);z-index:700;display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;backdrop-filter:blur(8px);}
+.lockgate.open{display:flex;}
+@keyframes floatAnim{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes pulseGlow{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.3);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pop{0%{transform:scale(.88);}60%{transform:scale(1.06);}100%{transform:scale(1);}}
+.lg-icon{font-size:68px;margin-bottom:18px;animation:floatAnim 3s ease-in-out infinite;}
+.lg-title{font-family:var(--ff-h);font-size:40px;font-weight:400;color:var(--surface);line-height:1.0;margin-bottom:10px;}
+.lg-title em{font-style:italic;color:var(--gold2);}
+.lg-sub{font-family:var(--ff-b);font-size:14px;color:rgba(253,250,245,.5);font-weight:300;line-height:1.7;max-width:280px;margin-bottom:26px;}
+.lg-pills{display:flex;flex-direction:column;gap:8px;width:100%;max-width:300px;margin-bottom:26px;}
+.lg-pill{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 16px;}
+.lg-pill.done{background:rgba(106,140,95,.14);border-color:rgba(106,140,95,.32);}
+.lg-pill-icon{font-size:18px;}
+.lg-pill-name{flex:1;font-family:var(--ff-d);font-size:14px;font-weight:400;font-style:italic;color:rgba(253,250,245,.68);text-align:left;}
+.lg-pill.done .lg-pill-name{color:var(--sage);}
+.lg-pill-status{font-family:var(--ff-t);font-size:10px;letter-spacing:.5px;color:rgba(255,255,255,.32);}
+.lg-pill.done .lg-pill-status{color:var(--sage);}
+
+/* ════════════ HQ ════════════ */
+.hq-hero{padding:20px 24px 0;}
+.hq-toprow{display:flex;justify-content:space-between;align-items:flex-end;}
+.hq-date{font-family:var(--ff-t);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.hq-greet{font-family:var(--ff-h);font-size:36px;font-weight:400;letter-spacing:-.5px;line-height:1.0;}
+.hq-greet em{font-style:italic;color:var(--gold);}
+.gate-btn{background:var(--ember-bg);border:1px solid var(--ember-bd);color:var(--ember);padding:8px 14px;border-radius:100px;font-family:var(--ff-t);font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;white-space:nowrap;}
+.pillars-row{display:flex;gap:8px;padding:14px 24px 0;}
+.pillar-ring{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;}
+.pillar-ring:hover{transform:translateY(-2px);}
+.pillar-ring.done{border-color:var(--sage-bd);background:var(--sage-bg);}
+.pillar-ring.done::after{content:'✓';position:absolute;top:6px;right:8px;font-size:9px;font-weight:700;color:var(--sage);}
+.pr-emoji{font-size:22px;}
+.pr-pct{font-family:var(--ff-h);font-size:18px;font-weight:400;color:var(--ink);}
+.pr-lbl{font-family:var(--ff-t);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;}
+.pillar-ring.done .pr-pct{color:var(--sage);}
+.alert-bar{margin:12px 24px 0;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--ember-bg),var(--gold-bg));border:1px solid var(--ember-bd);}
+.ab-dot{width:7px;height:7px;border-radius:50%;background:var(--ember);flex-shrink:0;animation:pulseGlow 1.6s ease-in-out infinite;}
+.ab-text{flex:1;}
+.ab-title{font-family:var(--ff-d);font-size:14px;font-weight:500;font-style:italic;color:var(--ink);}
+.ab-sub{font-family:var(--ff-b);font-size:10px;color:var(--muted);margin-top:2px;font-weight:300;}
+.ab-cta{background:var(--ember);color:#fff;border:none;padding:8px 14px;border-radius:100px;font-family:var(--ff-t);font-size:10px;letter-spacing:.5px;cursor:pointer;flex-shrink:0;white-space:nowrap;}
+.streak-card{margin:12px 24px 0;background:linear-gradient(135deg,var(--gold-bg),var(--ember-bg));border:1px solid var(--gold-bd);border-radius:18px;padding:18px;display:flex;align-items:center;gap:14px;}
+.sc-num{font-family:var(--ff-h);font-size:52px;font-weight:400;color:var(--gold);line-height:.9;letter-spacing:-2px;}
+.sc-lbl{font-family:var(--ff-t);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.sc-days{display:flex;gap:4px;margin-top:10px;}
+.sc-day{width:18px;height:18px;border-radius:5px;background:var(--bg3);}
+.sc-day.done{background:var(--gold);}
+.sc-day.today{background:var(--ember);}
+.today-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 24px 0;}
+.tg{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rs);padding:12px 8px;text-align:center;}
+.tg-val{font-family:var(--ff-h);font-size:22px;font-weight:400;letter-spacing:-.5px;}
+.tg-lbl{font-family:var(--ff-t);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.thought-of-day{margin:12px 24px 0;}
+.tod-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:4px 12px;font-family:var(--ff-t);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:12px;}
+.tod-quote{font-family:var(--ff-d);font-size:21px;font-weight:300;font-style:italic;color:rgba(253,250,245,.92);line-height:1.45;}
+.tod-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+.tod-meta{font-family:var(--ff-b);font-size:11px;color:rgba(255,255,255,.32);font-weight:300;}
+.tod-refresh{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;color:var(--gold2);transition:all .2s;}
+.tod-refresh:hover{background:rgba(255,255,255,.14);}
+
+/* ════════════ WORKOUT ════════════ */
+.gender-tabs{display:flex;gap:8px;margin-top:14px;}
+.gt{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:all .2s;}
+.gt.active{border-color:var(--gold);background:var(--gold-bg);}
+.gt-icon{font-size:22px;}
+.gt-lbl{font-family:var(--ff-t);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
+.gt.active .gt-lbl{color:var(--gold);}
+.step-card{margin:14px 24px 0;background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:22px;position:relative;overflow:hidden;}
+.step-card::after{content:'';position:absolute;bottom:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,var(--sky-bg),transparent);pointer-events:none;}
+.step-label{font-family:var(--ff-t);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:6px;}
+.step-num{font-family:var(--ff-h);font-size:60px;font-weight:400;letter-spacing:-3px;line-height:.9;color:var(--ink);}
+.step-unit{font-family:var(--ff-d);font-size:18px;font-style:italic;color:var(--muted);}
+.step-pct{font-family:var(--ff-b);font-size:11px;color:var(--muted);margin-top:4px;font-weight:300;}
+.step-stats{display:flex;margin-top:14px;border-top:1px solid var(--border2);padding-top:14px;}
+.step-stat{flex:1;text-align:center;}
+.step-stat:not(:last-child){border-right:1px solid var(--border2);}
+.ssv{font-family:var(--ff-h);font-size:22px;font-weight:400;letter-spacing:-.5px;color:var(--ink);}
+.ssl{font-family:var(--ff-t);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+.step-btns{display:flex;gap:6px;margin-top:14px;}
+.sbtn{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rxs);padding:9px 4px;font-family:var(--ff-b);font-size:11px;font-weight:600;color:var(--ink3);cursor:pointer;text-align:center;transition:all .2s;}
+.sbtn:hover{border-color:var(--sky);color:var(--sky);}
+.sbtn.g{background:var(--gold-bg);border-color:var(--gold-bd);color:var(--gold);}
+.wcat-row{display:flex;gap:8px;padding:14px 24px 0;overflow-x:auto;scrollbar-width:none;}
+.wcat-row::-webkit-scrollbar{display:none;}
+.wcat{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:8px 16px;font-family:var(--ff-b);font-size:11px;font-weight:600;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.wcat.active{background:var(--ink);color:var(--surface);border-color:var(--ink);}
+.workout-list{padding:12px 24px 0;display:flex;flex-direction:column;gap:8px;}
+.wcard{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;}
+.wcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;border-radius:3px 0 0 3px;}
+.wcard.req::before{background:var(--ember);}
+.wcard.logged{border-color:var(--sage-bd);background:var(--sage-bg);}
+.wcard.logged::before{background:var(--sage)!important;}
+.wcard:hover{transform:translateX(2px);}
+.wcard-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.wcard-body{flex:1;min-width:0;}
+.wcard-name{font-family:var(--ff-d);font-size:18px;font-weight:500;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wcard-meta{font-family:var(--ff-b);font-size:11px;color:var(--muted);margin-top:3px;font-weight:300;}
+.wcard-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+.wtag{font-family:var(--ff-t);font-size:8px;letter-spacing:.5px;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:var(--bg2);color:var(--ink3);}
+.wtag.req{background:var(--ember-bg);color:var(--ember);}
+.wcard-chk{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;flex-shrink:0;}
+.wcard.logged .wcard-chk{background:var(--sage);border-color:var(--sage);color:#fff;}
+
+/* ════════════ FUEL ════════════ */
+.macro-strip{display:flex;gap:8px;margin:14px 24px 0;}
+.mc{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:var(--rs);padding:12px 8px;text-align:center;}
+.mc-val{font-family:var(--ff-h);font-size:22px;font-weight:400;letter-spacing:-.5px;}
+.mc-lbl{font-family:var(--ff-t);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.water-card{margin:12px 24px 0;background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:20px;}
+.wc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.wc-count{font-family:var(--ff-h);font-size:48px;font-weight:400;color:var(--sky);line-height:.9;letter-spacing:-2px;}
+.wc-goal{font-family:var(--ff-b);font-size:11px;color:var(--muted);font-weight:300;margin-top:4px;}
+.wc-alert{font-family:var(--ff-b);font-size:10px;font-weight:600;margin-top:4px;}
+.drops{display:flex;gap:6px;flex-wrap:wrap;}
+.drop{font-size:26px;cursor:pointer;opacity:.18;filter:grayscale(1);transition:all .25s;}
+.drop.filled{opacity:1;filter:none;animation:pop .3s cubic-bezier(.34,1.4,.64,1);}
+.meals-sec{margin:12px 24px 0;}
+.meals-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.meal-row{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.meal-row.logged{border-color:var(--sage-bd);background:var(--sage-bg);}
+.meal-time{background:var(--bg2);border-radius:7px;padding:5px 9px;font-family:var(--ff-t);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);white-space:nowrap;}
+.meal-body{flex:1;min-width:0;}
+.meal-name{font-family:var(--ff-d);font-size:16px;font-weight:500;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.meal-macros{font-family:var(--ff-b);font-size:10px;color:var(--muted);margin-top:2px;font-weight:300;}
+.meal-chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:transparent;}
+.meal-row.logged .meal-chk{background:var(--sage);border-color:var(--sage);color:#fff;}
+.watch-sec{margin:12px 24px 0;}
+.watch-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.wc-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s;position:relative;}
+.wc-card:hover{transform:translateY(-2px);}
+.wc-card.done{border-color:var(--sage-bd);background:var(--sage-bg);}
+.wc-card.done::after{content:'✓';position:absolute;top:10px;right:12px;font-size:12px;font-weight:700;color:var(--sage);}
+.wc-icon{font-size:24px;margin-bottom:8px;}
+.wc-name{font-family:var(--ff-d);font-size:14px;font-weight:500;line-height:1.35;letter-spacing:-.2px;}
+.wc-sub{font-family:var(--ff-b);font-size:10px;color:var(--muted);margin-top:4px;font-weight:300;line-height:1.4;}
+.wc-req{font-family:var(--ff-t);font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--ember);margin-top:6px;}
+.wc-card.done .wc-name{color:var(--sage);}
+
+/* ════════════ THOUGHTS ════════════ */
+.life-tabs{display:flex;gap:6px;padding:14px 24px 0;overflow-x:auto;scrollbar-width:none;}
+.life-tabs::-webkit-scrollbar{display:none;}
+.lct{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:8px 14px;font-family:var(--ff-b);font-size:11px;font-weight:600;color:var(--ink3);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.lct.active{background:var(--ink);color:var(--surface);border-color:var(--ink);}
+.thought-preview{margin:14px 24px 0;}
+.tp-card{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:22px;}
+.tp-cat-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.tp-cat-icon{font-size:20px;}
+.tp-cat-name{font-family:var(--ff-t);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.tp-quote{font-family:var(--ff-d);font-size:22px;font-weight:300;font-style:italic;color:var(--ink);line-height:1.45;}
+.tp-divider{height:1px;background:var(--border2);margin:14px 0;}
+.tp-int-label{font-family:var(--ff-t);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.tp-intention{font-family:var(--ff-b);font-size:13px;font-weight:300;color:var(--ink3);line-height:1.65;}
+.tp-actions{display:flex;gap:8px;margin-top:16px;}
+.reminder-sec{padding:14px 24px 0;}
+.rem-card{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px;margin-bottom:8px;transition:border-color .2s;}
+.rem-card.on{border-color:var(--gold-bd);background:var(--gold-bg);}
+.rem-icon{width:44px;height:44px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;transition:background .2s;}
+.rem-card.on .rem-icon{background:rgba(184,147,90,.14);}
+.rem-body{flex:1;}
+.rem-title{font-family:var(--ff-d);font-size:17px;font-weight:500;letter-spacing:-.2px;}
+.rem-sub{font-family:var(--ff-b);font-size:11px;color:var(--muted);font-weight:300;margin-top:2px;}
+.custom-time{margin-bottom:8px;background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:18px;}
+.import-sec{padding:14px 24px 0;}
+.import-tabs{display:flex;gap:8px;margin-top:14px;}
+.itab{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px;text-align:center;cursor:pointer;transition:all .2s;}
+.itab.active{border-color:var(--gold);background:var(--gold-bg);}
+.itab-icon{font-size:22px;margin-bottom:6px;}
+.itab-lbl{font-family:var(--ff-t);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
+.itab.active .itab-lbl{color:var(--gold);}
+.dropzone{background:var(--surface);border:2px dashed var(--border);border-radius:16px;padding:32px 24px;text-align:center;cursor:pointer;transition:all .2s;}
+.dropzone:hover{border-color:var(--gold);}
+.imported-list{margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+.irow{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;}
+.irow-num{font-family:var(--ff-h);font-size:20px;font-weight:400;color:var(--gold);flex-shrink:0;line-height:1;}
+.irow-text{font-family:var(--ff-d);font-size:15px;font-weight:300;font-style:italic;color:var(--ink2);line-height:1.5;flex:1;}
+.irow-del{font-size:13px;color:var(--muted);cursor:pointer;padding:2px 4px;transition:color .2s;flex-shrink:0;}
+.irow-del:hover{color:var(--rose);}
+
+/* ════════════ PROGRESS ════════════ */
+.heatmap-row{display:flex;gap:5px;margin-top:10px;}
+.hm-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.hm-cell{width:100%;aspect-ratio:1;border-radius:7px;transition:all .3s;}
+.hm0{background:var(--bg3);}
+.hm1{background:rgba(184,147,90,.2);}
+.hm2{background:rgba(184,147,90,.42);}
+.hm3{background:rgba(184,147,90,.68);}
+.hm4{background:var(--gold);}
+.hm-lbl{font-family:var(--ff-t);font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 24px 0;}
+.mcard{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rs);padding:14px 8px;text-align:center;}
+.mv{font-family:var(--ff-h);font-size:22px;font-weight:400;letter-spacing:-.5px;}
+.ml{font-family:var(--ff-t);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.pr-sec{margin:12px 24px 0;}
+.pr-row{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.pr-ico{font-size:20px;width:28px;text-align:center;}
+.pr-body{flex:1;}
+.pr-name{font-family:var(--ff-d);font-size:16px;font-weight:500;letter-spacing:-.2px;}
+.pr-sub{font-family:var(--ff-b);font-size:10px;color:var(--muted);margin-top:2px;font-weight:300;}
+.pr-val{font-family:var(--ff-h);font-size:22px;font-weight:400;color:var(--gold);letter-spacing:-.5px;}
+.chart-sec{margin:12px 24px 0;}
+.chart-bars{display:flex;gap:4px;align-items:flex-end;height:90px;}
+.chart-bar{flex:1;border-radius:5px 5px 0 0;min-height:4px;}
+.chart-days{display:flex;gap:4px;margin-top:6px;}
+.chart-day{flex:1;text-align:center;font-family:var(--ff-t);font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
+.ms-sec{margin:12px 24px 20px;}
+.ms-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px;margin-bottom:8px;}
+.ms-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.ms-left{display:flex;align-items:center;gap:10px;}
+.ms-icon{font-size:20px;}
+.ms-name{font-family:var(--ff-d);font-size:15px;font-weight:500;letter-spacing:-.2px;}
+.ms-sub{font-family:var(--ff-b);font-size:10px;color:var(--muted);margin-top:2px;font-weight:300;}
+.ms-pct{font-family:var(--ff-h);font-size:20px;font-weight:400;color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- NOTIFICATION BANNER -->
+<div class="notif" id="notif">
+  <div class="notif-icon">🌿</div>
+  <div class="notif-body">
+    <div class="notif-app">ZENVRA · Daily Reminder</div>
+    <div class="notif-title" id="notifTitle">Good morning — time to check in</div>
+    <div class="notif-sub" id="notifSub">Your daily thought is ready.</div>
+  </div>
+  <span class="notif-close" onclick="dismissNotif()">✕</span>
+</div>
+
+<!-- LOCKGATE -->
+<div class="lockgate" id="lockGate">
+  <div class="lg-icon">🏛️</div>
+  <div class="lg-title">Build your<br><em>pillars.</em></div>
+  <div class="lg-sub">Four non-negotiables. Every single day. You owe it to the person you are choosing to become.</div>
+  <div class="lg-pills" id="lgPills"></div>
+  <button class="btn-ink" style="max-width:280px;border-radius:100px;" onclick="closeLock()">I'll complete them now →</button>
+</div>
+
+<!-- WORKOUT MODAL -->
+<div class="modal-bg" id="wModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="wModalTitle">Log <em>workout</em></div>
+    <div id="wModalBody"></div>
+    <button class="btn-ink" style="margin-top:20px;" onclick="saveWorkout()">✦ &nbsp;Mark complete</button>
+    <button class="btn-ghost" style="width:100%;margin-top:10px;" onclick="closeModal('wModal')">Cancel</button>
+  </div>
+</div>
+
+<!-- MEAL MODAL -->
+<div class="modal-bg" id="mealModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Log <em>meal</em></div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div><label class="inp-label">Meal name</label><input class="inp" id="mName" placeholder="e.g. Oats with banana…"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label class="inp-label">Calories</label><input class="inp" id="mCal" type="number" placeholder="320"></div><div><label class="inp-label">Protein (g)</label><input class="inp" id="mProt" type="number" placeholder="25"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label class="inp-label">Carbs (g)</label><input class="inp" id="mCarb" type="number" placeholder="48"></div><div><label class="inp-label">Fats (g)</label><input class="inp" id="mFat" type="number" placeholder="8"></div></div>
+      <div><label class="inp-label">Meal time</label><select class="inp" id="mTime"><option>Breakfast</option><option>Morning Snack</option><option>Lunch</option><option>Evening Snack</option><option>Dinner</option></select></div>
+    </div>
+    <button class="btn-ink" style="margin-top:20px;" onclick="saveMeal()">✦ &nbsp;Log this meal</button>
+    <button class="btn-ghost" style="width:100%;margin-top:8px;" onclick="closeModal('mealModal')">Cancel</button>
+  </div>
+</div>
+
+<!-- METRICS MODAL -->
+<div class="modal-bg" id="metricsModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Update <em>metrics</em></div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label class="inp-label">Weight (kg)</label><input class="inp" id="mmW" type="number" placeholder="72"></div><div><label class="inp-label">Height (cm)</label><input class="inp" id="mmH" type="number" placeholder="176"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label class="inp-label">Body Fat %</label><input class="inp" id="mmBF" type="number" placeholder="18"></div><div><label class="inp-label">Resting HR</label><input class="inp" id="mmHR" type="number" placeholder="62"></div></div>
+    </div>
+    <button class="btn-ink" style="margin-top:20px;" onclick="saveMetrics()">Save metrics</button>
+    <button class="btn-ghost" style="width:100%;margin-top:8px;" onclick="closeModal('metricsModal')">Cancel</button>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="statusbar"><span class="sb-time" id="sbTime">9:41</span><span class="sb-brand">ZENVRA</span></div>
+
+  <!-- ══ HQ ══ -->
+  <div class="screen active" id="sc-hq">
+    <div class="hq-hero">
+      <div class="hq-toprow">
+        <div><div class="hq-date" id="hqDate">TODAY</div><div class="hq-greet" id="hqGreet">Good<br><em>morning.</em></div></div>
+        <button class="gate-btn" onclick="openLock()">⚡ Check pillars</button>
+      </div>
+      <div class="body-sm" style="margin-top:8px;">Your daily non-negotiables. Build the life you choose.</div>
+    </div>
+    <div class="pillars-row">
+      <div class="pillar-ring" id="pr-move" onclick="goScreen('workout',1)"><div class="pr-emoji">🏋️</div><div class="pr-pct" id="pp-move">0%</div><div class="pr-lbl">Move</div><div class="pbar" style="width:100%;margin-top:5px;"><div class="pbar-fill" id="pf-move" style="width:0%;background:var(--ember);"></div></div></div>
+      <div class="pillar-ring" id="pr-eat" onclick="goScreen('fuel',2)"><div class="pr-emoji">🥗</div><div class="pr-pct" id="pp-eat">0%</div><div class="pr-lbl">Eat</div><div class="pbar" style="width:100%;margin-top:5px;"><div class="pbar-fill" id="pf-eat" style="width:0%;background:var(--sage);"></div></div></div>
+      <div class="pillar-ring" id="pr-drink" onclick="goScreen('fuel',2)"><div class="pr-emoji">💧</div><div class="pr-pct" id="pp-drink">0%</div><div class="pr-lbl">Drink</div><div class="pbar" style="width:100%;margin-top:5px;"><div class="pbar-fill" id="pf-drink" style="width:0%;background:var(--sky);"></div></div></div>
+      <div class="pillar-ring" id="pr-watch" onclick="goScreen('fuel',2)"><div class="pr-emoji">👁️</div><div class="pr-pct" id="pp-watch">0%</div><div class="pr-lbl">Watch</div><div class="pbar" style="width:100%;margin-top:5px;"><div class="pbar-fill" id="pf-watch" style="width:0%;background:var(--gold);"></div></div></div>
+    </div>
+    <div class="alert-bar" id="alertBar"><div class="ab-dot"></div><div class="ab-text"><div class="ab-title" id="alertTitle">Your workout awaits</div><div class="ab-sub">Compulsory daily pillar — your future self is watching</div></div><button class="ab-cta" id="alertCta">Do it</button></div>
+    <div class="streak-card"><div style="font-size:46px;">🔥</div><div style="flex:1;"><div class="sc-num" id="hqStreak">0</div><div class="sc-lbl">Day Streak</div><div class="sc-days" id="scDays"></div></div><div style="font-family:var(--ff-d);font-size:13px;font-style:italic;color:var(--ink3);line-height:1.5;text-align:right;max-width:120px;" id="scQuote">"Refuse to be ordinary."</div></div>
+    <div class="today-grid">
+      <div class="tg"><div class="tg-val" id="hqWorkouts" style="color:var(--ember);">0</div><div class="tg-lbl">Workouts</div></div>
+      <div class="tg"><div class="tg-val" id="hqSteps" style="color:var(--sky);">0</div><div class="tg-lbl">Steps</div></div>
+      <div class="tg"><div class="tg-val" id="hqWater" style="color:var(--sky);">0</div><div class="tg-lbl">Glasses</div></div>
+      <div class="tg"><div class="tg-val" id="hqCal" style="color:var(--gold);">0</div><div class="tg-lbl">Kcal In</div></div>
+    </div>
+    <div class="thought-of-day" style="margin:12px 24px 0;">
+      <div class="card-ink">
+        <div class="tod-badge"><span id="todIcon">💼</span><span id="todCat">Work</span></div>
+        <div class="tod-quote" id="todQuote">"Clarity comes not from rushing, but from pausing long enough to hear yourself."</div>
+        <div class="tod-footer"><span class="tod-meta">Today's thought</span><div class="tod-refresh" onclick="refreshHQThought()">↻</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ WORKOUT ══ -->
+  <div class="screen" id="sc-workout">
+    <div style="padding:20px 24px 0;">
+      <div class="xs-label" style="color:var(--ember);margin-bottom:6px;">⚡ Compulsory daily</div>
+      <div class="hero-head">Daily<br><em>movement.</em></div>
+      <div class="body-sm" style="margin-top:8px;">Log every session. Build strength. No days off from your future self.</div>
+      <div class="gender-tabs">
+        <div class="gt active" id="gm" onclick="setGender('male')"><div class="gt-icon">♂️</div><div class="gt-lbl">Men's Plan</div></div>
+        <div class="gt" id="gf" onclick="setGender('female')"><div class="gt-icon">♀️</div><div class="gt-lbl">Women's Plan</div></div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-label">Today's Steps</div>
+      <div class="step-num" id="stepNum">0 <span class="step-unit">/ 10,000</span></div>
+      <div class="step-pct" id="stepPct">0% of daily goal</div>
+      <div class="pbar" style="margin-top:10px;"><div class="pbar-fill" id="stepBar" style="width:0%;background:linear-gradient(90deg,var(--sky),var(--gold));"></div></div>
+      <div class="step-stats"><div class="step-stat"><div class="ssv" id="sKm">0.0</div><div class="ssl">KM</div></div><div class="step-stat"><div class="ssv" id="sCal">0</div><div class="ssl">KCAL</div></div><div class="step-stat"><div class="ssv" id="sMin">0</div><div class="ssl">MIN</div></div></div>
+      <div class="step-btns"><div class="sbtn" onclick="addSteps(1000)">+1K</div><div class="sbtn" onclick="addSteps(2500)">+2.5K</div><div class="sbtn" onclick="addSteps(5000)">+5K</div><div class="sbtn" onclick="addSteps(10000)">+10K</div><div class="sbtn g" onclick="manualSteps()">Manual</div></div>
+    </div>
+    <div class="wcat-row" id="wcatRow"></div>
+    <div class="workout-list" id="workoutList"></div>
+    <div style="margin:12px 24px 0;">
+      <div class="card">
+        <div class="xs-label" style="margin-bottom:12px;">Log Custom Workout</div>
+        <input class="inp" id="customName" placeholder="e.g. Boxing, Swimming, Dance…" style="margin-bottom:10px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><input class="inp" id="customDur" type="number" placeholder="Duration (min)"><input class="inp" id="customBurn" type="number" placeholder="Cal burned"></div>
+        <button class="btn-ink" onclick="logCustom()">✦ &nbsp;Log custom workout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FUEL ══ -->
+  <div class="screen" id="sc-fuel">
+    <div style="padding:20px 24px 0;">
+      <div class="xs-label" style="color:var(--sage);margin-bottom:6px;">🌿 Compulsory daily</div>
+      <div class="hero-head">Daily<br><em>fuel.</em></div>
+      <div class="body-sm" style="margin-top:8px;">You are what you eat. Log every meal. Drink your water. Feed your mind.</div>
+    </div>
+    <div class="macro-strip">
+      <div class="mc"><div class="mc-val" id="mcCal" style="color:var(--ember);">0</div><div class="mc-lbl">Kcal</div><div class="pbar" style="margin-top:8px;"><div class="pbar-fill" id="mpCal" style="width:0%;background:var(--ember);"></div></div></div>
+      <div class="mc"><div class="mc-val" id="mcProt" style="color:var(--sage);">0g</div><div class="mc-lbl">Protein</div><div class="pbar" style="margin-top:8px;"><div class="pbar-fill" id="mpProt" style="width:0%;background:var(--sage);"></div></div></div>
+      <div class="mc"><div class="mc-val" id="mcCarb" style="color:var(--gold);">0g</div><div class="mc-lbl">Carbs</div><div class="pbar" style="margin-top:8px;"><div class="pbar-fill" id="mpCarb" style="width:0%;background:var(--gold);"></div></div></div>
+      <div class="mc"><div class="mc-val" id="mcFat" style="color:var(--sky);">0g</div><div class="mc-lbl">Fats</div><div class="pbar" style="margin-top:8px;"><div class="pbar-fill" id="mpFat" style="width:0%;background:var(--sky);"></div></div></div>
+    </div>
+    <div class="water-card">
+      <div class="wc-top"><div><div class="xs-label" style="color:var(--sky);">💧 Hydration — Compulsory</div><div style="display:flex;align-items:baseline;gap:6px;margin-top:6px;"><div class="wc-count" id="wCount">0</div><div class="wc-goal">/ 8 glasses · 2L</div></div><div class="wc-alert" id="wAlert" style="color:var(--ember);">⚠ Non-negotiable — drink your water</div></div><button class="btn-gold" style="padding:9px 16px;" onclick="addWater()">+ Glass</button></div>
+      <div class="drops" id="waterDrops"></div>
+      <div class="pbar" style="margin-top:12px;height:6px;"><div class="pbar-fill" id="waterBar" style="width:0%;background:linear-gradient(90deg,var(--sky),var(--gold));"></div></div>
+    </div>
+    <div class="meals-sec">
+      <div class="meals-hdr"><div class="sec-head">Meals <em>logged</em></div><button class="btn-gold" style="padding:9px 16px;" onclick="openModal('mealModal')">+ Add meal</button></div>
+      <div id="mealList"></div>
+    </div>
+    <div class="watch-sec">
+      <div class="xs-label" style="color:var(--gold);margin-bottom:6px;">👁️ Watch Healthy — 3 required daily</div>
+      <div class="sec-head">Feed your <em>mind.</em></div>
+      <div class="watch-grid" id="watchGrid"></div>
+      <div class="body-sm" style="margin-top:8px;font-style:italic;">Tap to mark as watched</div>
+    </div>
+  </div>
+
+  <!-- ══ THOUGHTS + REMINDERS + IMPORT ══ -->
+  <div class="screen" id="sc-thoughts">
+    <div style="padding:20px 24px 0;">
+      <div class="xs-label" style="margin-bottom:6px;">✦ Personalised for your life</div>
+      <div class="hero-head">Daily<br><em>thoughts.</em></div>
+      <div class="body-sm" style="margin-top:8px;">One thought, one intention. Six areas of life. All here for you, every day.</div>
+    </div>
+    <div class="life-tabs" id="lifeTabs"></div>
+    <div class="thought-preview">
+      <div class="tp-card" id="tpCard">
+        <div class="tp-cat-row"><span class="tp-cat-icon" id="tpIcon">💼</span><span class="tp-cat-name" id="tpCatName">Work</span></div>
+        <div class="tp-quote" id="tpQuote">"Clarity comes not from rushing, but from pausing long enough to hear yourself."</div>
+        <div class="tp-divider"></div>
+        <div class="tp-int-label">Today's Intention</div>
+        <div class="tp-intention" id="tpIntention">Take one 5-minute tech-free break before your next big task.</div>
+        <div class="tp-actions"><button class="btn-outline" onclick="refreshCatThought()">↻ New thought</button><button class="btn-outline" onclick="previewAsReminder()">🔔 Preview as reminder</button></div>
+      </div>
+    </div>
+
+    <!-- REMINDERS -->
+    <div class="reminder-sec">
+      <div class="sec-head" style="margin-bottom:4px;">Daily <em>reminders.</em></div>
+      <div class="body-sm" style="margin-bottom:14px;">Gentle nudges delivered with your daily thought.</div>
+      <div class="rem-card" id="rc-morning"><div class="rem-icon">🌅</div><div class="rem-body"><div class="rem-title">Morning Check-in</div><div class="rem-sub">8:00 AM · Daily</div></div><label class="tog"><input type="checkbox" id="tog-morning" onchange="toggleReminder('morning',this.checked)"><div class="tog-track"></div></label></div>
+      <div class="rem-card" id="rc-midday"><div class="rem-icon">☀️</div><div class="rem-body"><div class="rem-title">Midday Pause</div><div class="rem-sub">1:00 PM · Weekdays</div></div><label class="tog"><input type="checkbox" id="tog-midday" onchange="toggleReminder('midday',this.checked)"><div class="tog-track"></div></label></div>
+      <div class="rem-card" id="rc-evening"><div class="rem-icon">🌙</div><div class="rem-body"><div class="rem-title">Evening Reflection</div><div class="rem-sub">9:30 PM · Daily</div></div><label class="tog"><input type="checkbox" id="tog-evening" onchange="toggleReminder('evening',this.checked)"><div class="tog-track"></div></label></div>
+      <div class="rem-card" id="rc-custom"><div class="rem-icon">⏰</div><div class="rem-body"><div class="rem-title">Custom Reminder</div><div class="rem-sub" id="customTimeSub">Set your own time</div></div><label class="tog"><input type="checkbox" id="tog-custom" onchange="toggleReminder('custom',this.checked)"><div class="tog-track"></div></label></div>
+      <div class="custom-time">
+        <label class="inp-label">Set custom time</label>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:8px;">
+          <input class="inp" id="customHr" type="number" min="1" max="12" placeholder="07" style="width:70px;text-align:center;font-size:20px;">
+          <span style="font-family:var(--ff-d);font-size:24px;color:var(--muted);">:</span>
+          <input class="inp" id="customMin" type="number" min="0" max="59" placeholder="00" style="width:70px;text-align:center;font-size:20px;">
+          <select class="inp" id="customAmpm" style="flex:1;"><option>AM</option><option>PM</option></select>
+          <button class="btn-gold" onclick="saveCustomTime()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORT SECTION -->
+    <div class="import-sec">
+      <div class="sec-head" style="margin-bottom:4px;">Import your <em>thoughts.</em></div>
+      <div class="body-sm" style="margin-bottom:14px;">Add your own quotes, mantras, and lines. They'll appear in your daily rotation.</div>
+      <div class="import-tabs">
+        <div class="itab active" id="itab-text" onclick="switchImportTab('text')"><div class="itab-icon">✍️</div><div class="itab-lbl">Text Box</div></div>
+        <div class="itab" id="itab-file" onclick="switchImportTab('file')"><div class="itab-icon">📄</div><div class="itab-lbl">Upload .txt</div></div>
+      </div>
+      <div id="import-text-panel" style="margin-top:14px;">
+        <div class="xs-label" style="margin-bottom:6px;">Separate each thought with a semicolon ( ; )</div>
+        <textarea class="inp" id="importBox" rows="5" style="resize:none;line-height:1.6;font-size:14px;" placeholder="The journey begins with a single step; Progress over perfection; Rest is a requirement; Be the energy you want…"></textarea>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button class="btn-ink" style="flex:1;" onclick="importFromText()">✦ &nbsp;Import thoughts</button>
+          <button class="btn-outline" onclick="previewImport()">Preview</button>
+        </div>
+        <div class="body-sm" style="margin-top:8px;font-style:italic;" id="importPreviewCount"></div>
+      </div>
+      <div id="import-file-panel" style="margin-top:14px;display:none;">
+        <div class="xs-label" style="margin-bottom:6px;">Upload a .txt file — one thought per line or separated by semicolons</div>
+        <div class="dropzone" onclick="document.getElementById('fileInput').click()" id="dropZone">
+          <div style="font-size:36px;margin-bottom:10px;">📄</div>
+          <div style="font-family:var(--ff-d);font-size:17px;font-style:italic;color:var(--ink2);margin-bottom:4px;">Drop your .txt file here</div>
+          <div class="body-sm">or tap to browse</div>
+          <input type="file" id="fileInput" accept=".txt" style="display:none;" onchange="importFromFile(this)">
+        </div>
+        <div class="body-sm" style="margin-top:8px;font-style:italic;" id="fileStatus"></div>
+      </div>
+      <div style="margin-top:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div class="xs-label">Your imported thoughts (<span id="importedCount">0</span>)</div>
+          <button class="btn-ghost" onclick="clearAllImported()" style="color:var(--rose);font-size:11px;">Clear all</button>
+        </div>
+        <div class="imported-list" id="importedList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROGRESS ══ -->
+  <div class="screen" id="sc-progress">
+    <div style="padding:20px 24px 0;">
+      <div class="xs-label" style="margin-bottom:6px;">📈 Your transformation</div>
+      <div class="hero-head">Your<br><em>progress.</em></div>
+      <div class="body-sm" style="margin-top:8px;">Every rep leaves a mark. Every glass counts. You are building something real.</div>
+    </div>
+    <div style="padding:14px 24px 0;"><div class="xs-label" style="margin-bottom:10px;">This week — all pillars</div><div class="heatmap-row" id="heatmapRow"></div></div>
+    <div style="margin:14px 24px 0;display:flex;justify-content:space-between;align-items:center;"><div class="sec-head">Body <em>metrics</em></div><button class="btn-outline" onclick="openModal('metricsModal')">Update</button></div>
+    <div class="metrics-grid" id="metricsGrid"></div>
+    <div class="chart-sec"><div class="xs-label" style="margin-bottom:10px;">Weekly activity</div><div class="card"><div class="chart-bars" id="chartBars"></div><div class="chart-days" id="chartDays"></div></div></div>
+    <div class="pr-sec"><div class="sec-head" style="margin-bottom:10px;">Personal <em>records</em></div><div id="prRows"></div></div>
+    <div class="ms-sec"><div class="sec-head" style="margin-bottom:10px;">Strength <em>milestones</em></div><div id="msRows"></div></div>
+  </div>
+
+  <nav class="bnav">
+    <button class="nb active" onclick="goScreen('hq',0)"><span class="ni">🏠</span><span class="nl">Home</span></button>
+    <button class="nb" onclick="goScreen('workout',1)"><span class="ni">🏋️</span><span class="nl">Move</span></button>
+    <button class="nb" onclick="goScreen('fuel',2)"><span class="ni">🥗</span><span class="nl">Fuel</span></button>
+    <button class="nb" onclick="goScreen('thoughts',3)"><span class="ni">✨</span><span class="nl">Thoughts</span></button>
+    <button class="nb" onclick="goScreen('progress',4)"><span class="ni">📈</span><span class="nl">Progress</span></button>
+  </nav>
+</div>
+
+<script>
+/* ══════════ DATA ══════════ */
+const S={
+  get:k=>{try{return JSON.parse(localStorage.getItem('zvr_'+k));}catch{return null;}},
+  set:(k,v)=>{try{localStorage.setItem('zvr_'+k,JSON.stringify(v));}catch{}},
+  today:()=>new Date().toDateString(),
+  td:()=>S.get('td_'+S.today())||{workouts:[],meals:[],water:0,steps:0,watch:[],calIn:0,prot:0,carb:0,fat:0},
+  saveTd:d=>S.set('td_'+S.today(),d),
+  metrics:()=>S.get('metrics')||{weight:72,height:176,bf:18,hr:62},
+  prs:()=>S.get('prs')||{pushup:0,pullup:0,bench:0,deadlift:0,squat:0,plank:0,steps:0},
+  streak:()=>S.get('streak')||{count:0,last:null},
+  gender:()=>S.get('gender')||'male',
+  reminders:()=>S.get('reminders')||{morning:false,midday:false,evening:false,custom:false,customH:'07',customM:'00',customAmpm:'AM'},
+  imported:()=>S.get('imported')||[],
+};
+
+/* ══════════ WORKOUT DB ══════════ */
+const WDB={
+  running:[
+    {id:'easy-run',n:'Easy Run',e:'🏃',color:'#C4703A',req:false,tags:['Cardio','Fat Burn'],fields:[['Distance','km'],['Duration','min'],['Avg Pace','min/km']]},
+    {id:'intervals',n:'Interval Sprints',e:'⚡',color:'#C4703A',req:true,tags:['HIIT','Speed'],fields:[['Sprint Reps','reps'],['Sprint Distance','m'],['Duration','min']]},
+    {id:'long-run',n:'Long Distance Run',e:'🛤️',color:'#C4703A',req:false,tags:['Endurance'],fields:[['Distance','km'],['Duration','min']]},
+    {id:'5k',n:'5K Run',e:'🎯',color:'#C4703A',req:false,tags:['Race Pace'],fields:[['Time','min'],['Distance','km']]},
+    {id:'tempo',n:'Tempo Run',e:'💨',color:'#C4703A',req:false,tags:['Threshold','Cardio'],fields:[['Distance','km'],['Duration','min'],['Target Pace','min/km']]},
+  ],
+  calisthenics:[
+    {id:'pushup',n:'Push-Ups',e:'💪',color:'#7A5C8A',req:true,tags:['Chest','Core'],fields:[['Sets','sets'],['Reps / Set','reps'],['Rest','sec']]},
+    {id:'pullup',n:'Pull-Ups',e:'🔝',color:'#7A5C8A',req:true,tags:['Back','Biceps'],fields:[['Sets','sets'],['Reps / Set','reps']]},
+    {id:'squat-bw',n:'Bodyweight Squat',e:'🦵',color:'#7A5C8A',req:true,tags:['Legs','Glutes'],fields:[['Sets','sets'],['Reps','reps']]},
+    {id:'plank',n:'Plank Hold',e:'🧱',color:'#7A5C8A',req:false,tags:['Core','Stability'],fields:[['Sets','sets'],['Hold','sec']]},
+    {id:'burpee',n:'Burpees',e:'🔥',color:'#7A5C8A',req:false,tags:['Full Body','HIIT'],fields:[['Sets','sets'],['Reps','reps']]},
+    {id:'dip',n:'Dips',e:'⬇️',color:'#7A5C8A',req:false,tags:['Chest','Triceps'],fields:[['Sets','sets'],['Reps','reps']]},
+    {id:'lsit',n:'L-Sit Hold',e:'⚙️',color:'#7A5C8A',req:false,tags:['Core','Strength'],fields:[['Attempts','reps'],['Hold','sec']]},
+    {id:'muscleup',n:'Muscle-Up',e:'🤸',color:'#7A5C8A',req:false,tags:['Advanced'],fields:[['Reps','reps']]},
+    {id:'lunge',n:'Lunges',e:'🦿',color:'#7A5C8A',req:false,tags:['Legs','Balance'],fields:[['Sets','sets'],['Reps each','reps']]},
+    {id:'diamond-pu',n:'Diamond Push-Ups',e:'💎',color:'#7A5C8A',req:false,tags:['Triceps','Chest'],fields:[['Sets','sets'],['Reps','reps']]},
+  ],
+  gym:[
+    {id:'bench',n:'Bench Press',e:'🏋️',color:'#4E80A0',req:true,tags:['Chest','Push'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'deadlift',n:'Deadlift',e:'⚓',color:'#4E80A0',req:true,tags:['Full Body','Compound'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'squat-bar',n:'Barbell Squat',e:'🔱',color:'#4E80A0',req:true,tags:['Legs','Compound'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'ohp',n:'Overhead Press',e:'🙌',color:'#4E80A0',req:false,tags:['Shoulders'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'brow',n:'Barbell Row',e:'🚣',color:'#4E80A0',req:false,tags:['Back','Pull'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'curl',n:'Bicep Curl',e:'💪',color:'#4E80A0',req:false,tags:['Arms'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'rdl',n:'Romanian Deadlift',e:'🦋',color:'#4E80A0',req:false,tags:['Hamstrings','Glutes'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'legpress',n:'Leg Press',e:'🦿',color:'#4E80A0',req:false,tags:['Legs'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'cablefly',n:'Cable Fly',e:'🦅',color:'#4E80A0',req:false,tags:['Chest','Isolation'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'lat-pulldown',n:'Lat Pulldown',e:'⬇️',color:'#4E80A0',req:false,tags:['Back','Width'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+  ],
+  walking:[
+    {id:'morning-walk',n:'Morning Walk',e:'🌅',color:'#6A8C5F',req:true,tags:['Active Recovery','Cardio'],fields:[['Distance','km'],['Duration','min']]},
+    {id:'power-walk',n:'Power Walk',e:'🚶',color:'#6A8C5F',req:false,tags:['Low Impact'],fields:[['Distance','km'],['Duration','min']]},
+    {id:'hike',n:'Hiking / Trail',e:'⛰️',color:'#6A8C5F',req:false,tags:['Outdoor','Endurance'],fields:[['Distance','km'],['Elevation','m']]},
+    {id:'nordic-walk',n:'Nordic Walking',e:'🎿',color:'#6A8C5F',req:false,tags:['Full Body','Cardio'],fields:[['Distance','km'],['Duration','min']]},
+  ],
+  women:[
+    {id:'yoga',n:'Yoga Flow',e:'🧘',color:'#B86050',req:true,tags:['Flexibility','Mindful'],fields:[['Duration','min'],['Style','']]},
+    {id:'pilates',n:'Pilates',e:'🌸',color:'#B86050',req:false,tags:['Core','Tone'],fields:[['Duration','min'],['Sets','sets']]},
+    {id:'glute-bridge',n:'Glute Bridge',e:'🍑',color:'#B86050',req:true,tags:['Glutes','Core'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'hip-thrust',n:'Hip Thrust',e:'💎',color:'#B86050',req:true,tags:['Glutes','Hamstrings'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'sumo-squat',n:'Sumo Squat',e:'🏋️',color:'#B86050',req:false,tags:['Legs','Inner Thigh'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'lateral-band',n:'Lateral Band Walk',e:'🦵',color:'#B86050',req:false,tags:['Glute Activation'],fields:[['Sets','sets'],['Steps each','steps']]},
+    {id:'rdl-w',n:'Romanian Deadlift',e:'🔱',color:'#B86050',req:false,tags:['Hamstrings'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'hip-abduct',n:'Hip Abduction Machine',e:'🌺',color:'#B86050',req:false,tags:['Glutes','Outer Thigh'],fields:[['Sets','sets'],['Reps','reps'],['Weight','kg']]},
+    {id:'banded-squat',n:'Banded Squat',e:'🎀',color:'#B86050',req:false,tags:['Glutes','Legs'],fields:[['Sets','sets'],['Reps','reps']]},
+  ]
+};
+
+const WATCH_ITEMS=[
+  {id:'ted',e:'🎬',n:'TED: Why Exercise is Medicine',sub:'18 min · Science talk',req:true},
+  {id:'nutr',e:'📺',n:'The Whole Food Reset',sub:'22 min · Nutrition documentary',req:true},
+  {id:'hub',e:'🎧',n:'Huberman: Sleep & Recovery',sub:'30 min · Podcast',req:false},
+  {id:'meal-prep',e:'🧑‍🍳',n:'High-Protein Meal Prep',sub:'12 min · YouTube',req:true},
+];
+
+/* ══════════ LIFE THOUGHTS ══════════ */
+const LIFE_CATS=[
+  {key:'work',icon:'💼',label:'Work',color:'var(--gold)',
+    thoughts:[
+      {q:'Clarity comes not from rushing, but from pausing long enough to hear yourself.',i:'Take one 5-minute tech-free break before your next big task.'},
+      {q:'Deep work is the superpower of our distracted age.',i:'Identify your single most important task today and start it first.'},
+      {q:'Your career is a garden — water it with intention, not just urgency.',i:'Reach out to one person who inspires you professionally today.'},
+      {q:'Done is better than perfect, but better is worth pursuing.',i:'Review one piece of your work through a fresh set of eyes.'},
+      {q:'The quality of your output mirrors the quality of your thinking.',i:'Spend 10 minutes planning before starting — not during.'},
+    ]
+  },
+  {key:'gym',icon:'🏋️',label:'Gym',color:'var(--ember)',
+    thoughts:[
+      {q:'The iron never lies to you. You can walk outside and make up all sorts of stories — but you pick up the iron, it tells you the truth.',i:'Add one extra set to your weakest movement today.'},
+      {q:'Strength is not given. It is earned — rep by relentless rep.',i:'Track your weights today. What gets measured, gets improved.'},
+      {q:'Your body keeps every promise you make to it in the gym.',i:'Warm up fully — your future self will thank you.'},
+      {q:'Champions train when they don\'t feel like it.',i:'Show up even for 20 minutes. Starting is always enough.'},
+      {q:'Progress is built in the moments you choose not to quit.',i:'Increase your heaviest lift by just 2.5kg today.'},
+    ]
+  },
+  {key:'relationship',icon:'🌹',label:'Relationships',color:'var(--rose)',
+    thoughts:[
+      {q:'The most important thing in communication is hearing what isn\'t said.',i:'Put your phone away during the next conversation you have.'},
+      {q:'Connection is not found — it is built, slowly, and with care.',i:'Send one thoughtful message to someone you haven\'t spoken to in a while.'},
+      {q:'Be the person who makes others feel seen.',i:'Ask someone "how are you, really?" and actually wait for the answer.'},
+      {q:'Every relationship is a practice in patience and presence.',i:'Offer one genuine compliment to someone important to you today.'},
+      {q:'Love is not just a feeling — it is a daily choice and a daily practice.',i:'Do one unexpected kind thing for someone you care about.'},
+    ]
+  },
+  {key:'travel',icon:'✈️',label:'Travel',color:'var(--sky)',
+    thoughts:[
+      {q:'Travel is the only thing you buy that makes you richer.',i:'Plan or research one destination you\'ve always wanted to visit.'},
+      {q:'Not all those who wander are lost — some are finally finding themselves.',i:'Take a new route today. Even a small detour opens the mind.'},
+      {q:'The world is a book. Those who do not travel read only one page.',i:'Watch a documentary or read about a culture different from yours.'},
+      {q:'Every destination teaches you something your hometown cannot.',i:'Book that trip you\'ve been putting off. Even just research it today.'},
+      {q:'Travel far enough and you meet yourself.',i:'Write down three places you want to visit and why.'},
+    ]
+  },
+  {key:'learning',icon:'📚',label:'Learning',color:'var(--plum)',
+    thoughts:[
+      {q:'The more that you read, the more things you will know. The more you learn, the more places you will go.',i:'Read 10 pages of a book that challenges you today.'},
+      {q:'An investment in knowledge pays the best interest.',i:'Learn one new concept or skill — even just 15 minutes.'},
+      {q:'The mind is not a vessel to be filled but a fire to be kindled.',i:'Ask a question you\'ve been afraid to ask.'},
+      {q:'Stay curious. The moment you stop learning, you stop growing.',i:'Watch or listen to something educational today, not just entertaining.'},
+      {q:'Education is not the filling of a pail but the lighting of a fire.',i:'Teach someone else something you know — the best way to learn.'},
+    ]
+  },
+  {key:'stress',icon:'🌬️',label:'Stress',color:'var(--sage)',
+    thoughts:[
+      {q:'You don\'t have to control your thoughts. You just have to stop letting them control you.',i:'5 slow breaths right now — inhale 4 counts, exhale 6.'},
+      {q:'Almost everything will work again if you unplug it for a few minutes, including you.',i:'Take a 10-minute walk with no phone, no podcast — just air.'},
+      {q:'Rest is not a reward. It is a requirement.',i:'Schedule one block of genuine rest in your day today.'},
+      {q:'Peace is not the absence of problems — it\'s the presence of purpose.',i:'Write down one thing you can control today, and let go of one you cannot.'},
+      {q:'You cannot pour from an empty cup. Refill yourself first.',i:'Do one thing today that is purely for your wellbeing.'},
+    ]
+  },
+];
+
+const STREAK_Q=["The iron never lies.","Every rep counts.","Champions never quit.","Progress, not perfection.","Refuse to be ordinary.","Earn your rest.","Make it non-negotiable.","One more day stronger.","Small steps, seismic change."];
+const WCATS_M=[{k:'calisthenics',l:'💪 Calisthenics'},{k:'gym',l:'🏋️ Gym'},{k:'running',l:'🏃 Running'},{k:'walking',l:'🚶 Walking'}];
+const WCATS_F=[{k:'women',l:'🌸 Women\'s'},{k:'calisthenics',l:'💪 Calisthenics'},{k:'gym',l:'🏋️ Gym'},{k:'running',l:'🏃 Running'},{k:'walking',l:'🚶 Walking'}];
+
+let currentCat='calisthenics';
+let currentCatKey='work';
+let currentThoughtIdx=0;
+let currentWorkout=null;
+let wLogData={};
+
+/* ══════════ INIT ══════════ */
+function init(){
+  tick();setInterval(tick,30000);
+  setGreeting();
+  setDateLabel();
+  setGender(S.gender(),true);
+  renderWater();renderMeals();renderWatch();renderMacros();renderSteps();
+  renderStreak();renderPillars();renderMoto();checkAlert();updateHQNums();
+  renderLifeTabs();renderCurrentThought();
+  loadReminderStates();renderImportedList();
+  scheduleReminders();
+}
+
+function tick(){
+  const n=new Date();document.getElementById('sbTime').textContent=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+}
+function setGreeting(){
+  const h=new Date().getHours();
+  const g=h<5?'Good night,':h<12?'Good morning,':h<17?'Good afternoon,':'Good evening,';
+  const em=h<5?'sleep well.':h<12?'rise & build.':h<17?'keep going.':'wind down well.';
+  document.getElementById('hqGreet').innerHTML=g+'<br><em>'+em+'</em>';
+}
+function setDateLabel(){
+  document.getElementById('hqDate').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+}
+
+/* ══════════ NAVIGATION ══════════ */
+function goScreen(name,idx){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sc-'+name).classList.add('active');
+  document.querySelectorAll('.nb')[idx].classList.add('active');
+  if(name==='progress')renderProgress();
+  if(name==='fuel'){renderMacros();renderMeals();renderWatch();renderWater();}
+}
+
+/* ══════════ GENDER ══════════ */
+function setGender(g,silent){
+  S.set('gender',g);
+  document.getElementById('gm').classList.toggle('active',g==='male');
+  document.getElementById('gf').classList.toggle('active',g==='female');
+  currentCat=g==='female'?'women':'calisthenics';
+  renderWcats();renderWorkouts();
+  if(!silent)toast(g==='male'?'Switched to Men\'s Plan 💪':'Switched to Women\'s Plan 🌸');
+}
+
+/* ══════════ WORKOUT CATEGORIES ══════════ */
+function renderWcats(){
+  const cats=S.gender()==='female'?WCATS_F:WCATS_M;
+  document.getElementById('wcatRow').innerHTML=cats.map(c=>`<div class="wcat ${c.k===currentCat?'active':''}" onclick="setCat('${c.k}')">${c.l}</div>`).join('');
+}
+function setCat(k){currentCat=k;renderWcats();renderWorkouts();}
+
+/* ══════════ WORKOUT LIST ══════════ */
+function renderWorkouts(){
+  const td=S.td();const list=WDB[currentCat]||[];
+  document.getElementById('workoutList').innerHTML=list.map(w=>{
+    const done=td.workouts.find(x=>x.id===w.id);
+    return`<div class="wcard ${done?'logged':''} ${w.req?'req':''}" onclick="openWorkout('${w.id}')">
+      <div class="wcard-icon" style="background:${w.color}18;">${w.e}</div>
+      <div class="wcard-body">
+        <div class="wcard-name">${w.n}</div>
+        <div class="wcard-meta">${done?'✓ Logged today · tap to re-log':'Tap to log workout'}</div>
+        <div class="wcard-tags">${w.tags.map(t=>`<span class="wtag">${t}</span>`).join('')}${w.req?'<span class="wtag req">⚡ Required</span>':''}</div>
+      </div>
+      <div class="wcard-chk">${done?'✓':''}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════ WORKOUT MODAL ══════════ */
+function openWorkout(id){
+  const w=[...Object.values(WDB).flat()].find(x=>x.id===id);
+  if(!w)return;
+  currentWorkout=w;wLogData={};
+  document.getElementById('wModalTitle').innerHTML='Log <em>'+w.n+'</em>';
+  document.getElementById('wModalBody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--bg2);border-radius:12px;margin-bottom:16px;">
+      <span style="font-size:32px;">${w.e}</span>
+      <div>${w.tags.map(t=>`<span class="wtag" style="margin-right:4px;">${t}</span>`).join('')}${w.req?'<span class="wtag req">⚡ Required</span>':''}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${w.fields.map((f,i)=>`<div style="display:flex;align-items:center;gap:10px;"><div style="flex:1;font-family:var(--ff-d);font-size:15px;font-weight:400;font-style:italic;color:var(--ink2);">${f[0]}</div><input class="inp" id="wf${i}" type="${f[0]==='Style'?'text':'number'}" placeholder="0" style="width:90px;text-align:center;font-family:var(--ff-h);font-size:20px;letter-spacing:-.5px;" oninput="wLogData['${f[0]}']=this.value"><div style="font-family:var(--ff-t);font-size:10px;letter-spacing:1px;color:var(--muted);width:32px;">${f[1]}</div></div>`).join('')}
+    </div>
+    <div style="margin-top:14px;"><label class="inp-label">Calories burned (est.)</label><input class="inp" id="wCalBurn" type="number" placeholder="e.g. 280" oninput="wLogData.calBurned=parseInt(this.value)||0"></div>
+    <div style="margin-top:12px;"><label class="inp-label">How was it?</label><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${['💪 Beast mode','😤 Pushed hard','😅 Struggled','🔥 New PR','😐 Maintenance'].map(f=>`<span onclick="pickFeel(this,'${f}')" style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-family:var(--ff-b);font-size:12px;cursor:pointer;transition:all .2s;" class="feel-btn">${f}</span>`).join('')}</div></div>
+  `;
+  openModal('wModal');
+}
+function pickFeel(el,v){document.querySelectorAll('.feel-btn').forEach(b=>{b.style.background='var(--bg2)';b.style.borderColor='var(--border)';b.style.color='var(--ink2)';});el.style.background='var(--gold-bg)';el.style.borderColor='var(--gold-bd)';el.style.color='var(--gold)';wLogData.feel=v;}
+function saveWorkout(){
+  if(!currentWorkout)return;
+  const td=S.td();
+  td.workouts=td.workouts.filter(x=>x.id!==currentWorkout.id);
+  td.workouts.push({id:currentWorkout.id,n:currentWorkout.n,e:currentWorkout.e,data:wLogData,t:Date.now()});
+  S.saveTd(td);updatePRsFromLog(currentWorkout.id,wLogData);
+  closeModal('wModal');renderWorkouts();renderPillars();checkAlert();updateStreak();updateHQNums();
+  toast('✦ '+currentWorkout.n+' logged!');
+}
+function logCustom(){
+  const n=document.getElementById('customName').value.trim();if(!n){toast('Enter a workout name');return;}
+  const td=S.td();
+  td.workouts.push({id:'custom_'+Date.now(),n,e:'⚡',data:{Duration:document.getElementById('customDur').value,calBurned:parseInt(document.getElementById('customBurn').value)||0},t:Date.now()});
+  S.saveTd(td);
+  document.getElementById('customName').value='';document.getElementById('customDur').value='';document.getElementById('customBurn').value='';
+  renderPillars();checkAlert();updateStreak();updateHQNums();
+  toast('✦ Custom workout logged!');
+}
+
+/* ══════════ STEPS ══════════ */
+function addSteps(n){
+  const td=S.td();td.steps=(td.steps||0)+n;S.saveTd(td);
+  renderSteps();updateHQNums();
+  const p=S.prs();if(td.steps>p.steps){p.steps=td.steps;S.set('prs',p);}
+  toast('+'+n.toLocaleString()+' steps ✦');
+}
+function manualSteps(){const n=prompt('Enter step count:');if(n&&!isNaN(n))addSteps(parseInt(n));}
+function renderSteps(){
+  const td=S.td();const s=td.steps||0;const goal=10000;const pct=Math.min((s/goal)*100,100);
+  document.getElementById('stepNum').innerHTML=s.toLocaleString()+' <span class="step-unit">/ 10,000</span>';
+  document.getElementById('stepPct').textContent=pct.toFixed(0)+'% of daily goal';
+  document.getElementById('stepBar').style.width=pct+'%';
+  document.getElementById('sKm').textContent=(s*0.0008).toFixed(1);
+  document.getElementById('sCal').textContent=Math.round(s*0.04);
+  document.getElementById('sMin').textContent=Math.round(s/100);
+}
+
+/* ══════════ WATER ══════════ */
+function addWater(){
+  const td=S.td();if((td.water||0)>=8){toast('🎉 Hydration goal achieved!');return;}
+  td.water=(td.water||0)+1;S.saveTd(td);
+  renderWater();renderPillars();checkAlert();updateHQNums();
+  if(td.water>=8)toast('🎉 Fully hydrated — outstanding!');else toast('💧 '+td.water+'/8 glasses');
+}
+function renderWater(){
+  const td=S.td();const w=td.water||0;
+  document.getElementById('wCount').textContent=w;
+  document.getElementById('waterDrops').innerHTML=Array.from({length:8},(_,i)=>`<span class="drop ${i<w?'filled':''}" onclick="addWater()">💧</span>`).join('');
+  document.getElementById('waterBar').style.width=(w/8*100)+'%';
+  const al=document.getElementById('wAlert');
+  if(w>=8){al.style.color='var(--sage)';al.textContent='✓ Fully hydrated — excellent!';}
+  else if(w>=4){al.style.color='var(--gold)';al.textContent='⬆ Keep going — '+w+'/8 glasses';}
+  else{al.style.color='var(--ember)';al.textContent='⚠ Non-negotiable — drink your water';}
+}
+
+/* ══════════ MEALS ══════════ */
+function saveMeal(){
+  const n=document.getElementById('mName').value.trim();if(!n){toast('Add a meal name');return;}
+  const td=S.td();
+  const cal=parseInt(document.getElementById('mCal').value)||0,prot=parseInt(document.getElementById('mProt').value)||0,carb=parseInt(document.getElementById('mCarb').value)||0,fat=parseInt(document.getElementById('mFat').value)||0;
+  td.meals=td.meals||[];
+  td.meals.push({id:Date.now(),n,cal,prot,carb,fat,time:document.getElementById('mTime').value});
+  td.calIn=(td.calIn||0)+cal;td.prot=(td.prot||0)+prot;td.carb=(td.carb||0)+carb;td.fat=(td.fat||0)+fat;
+  S.saveTd(td);
+  ['mName','mCal','mProt','mCarb','mFat'].forEach(id=>document.getElementById(id).value='');
+  closeModal('mealModal');renderMeals();renderMacros();renderPillars();checkAlert();updateHQNums();
+  toast('✦ Meal logged!');
+}
+function renderMeals(){
+  const td=S.td();const meals=td.meals||[];
+  const el=document.getElementById('mealList');
+  if(!meals.length){el.innerHTML=`<div style="text-align:center;padding:28px 0;color:var(--muted);font-family:var(--ff-d);font-size:17px;font-style:italic;">No meals logged yet.<br>Track every bite.</div>`;return;}
+  el.innerHTML=meals.map(m=>`<div class="meal-row logged"><div class="meal-time">${m.time.split(' ')[0]}</div><div class="meal-body"><div class="meal-name">${m.n}</div><div class="meal-macros">${m.cal}kcal · ${m.prot}g pro · ${m.carb}g carbs · ${m.fat}g fat</div></div><div class="meal-chk">✓</div></div>`).join('');
+}
+function renderMacros(){
+  const td=S.td();const G={cal:2200,prot:160,carb:280,fat:70};
+  document.getElementById('mcCal').textContent=td.calIn||0;document.getElementById('mpCal').style.width=Math.min(((td.calIn||0)/G.cal)*100,100)+'%';
+  document.getElementById('mcProt').textContent=(td.prot||0)+'g';document.getElementById('mpProt').style.width=Math.min(((td.prot||0)/G.prot)*100,100)+'%';
+  document.getElementById('mcCarb').textContent=(td.carb||0)+'g';document.getElementById('mpCarb').style.width=Math.min(((td.carb||0)/G.carb)*100,100)+'%';
+  document.getElementById('mcFat').textContent=(td.fat||0)+'g';document.getElementById('mpFat').style.width=Math.min(((td.fat||0)/G.fat)*100,100)+'%';
+}
+
+/* ══════════ WATCH ══════════ */
+function renderWatch(){
+  const td=S.td();const w=td.watch||[];
+  document.getElementById('watchGrid').innerHTML=WATCH_ITEMS.map(x=>`<div class="wc-card ${w.includes(x.id)?'done':''}" onclick="toggleWatch('${x.id}')"><div class="wc-icon">${x.e}</div><div class="wc-name">${x.n}</div><div class="wc-sub">${x.sub}</div>${x.req?'<div class="wc-req">⚡ Required</div>':''}</div>`).join('');
+}
+function toggleWatch(id){
+  const td=S.td();td.watch=td.watch||[];
+  const has=td.watch.includes(id);
+  td.watch=has?td.watch.filter(x=>x!==id):[...td.watch,id];
+  S.saveTd(td);renderWatch();renderPillars();checkAlert();
+  toast(has?'Removed from watched':'✦ Content marked watched');
+}
+
+/* ══════════ PILLARS ══════════ */
+function getPillarScores(){
+  const td=S.td();
+  const move=Math.min(((td.workouts||[]).length/3)*100,100);
+  const eat=Math.min(((td.meals||[]).length/4)*100,100);
+  const drink=Math.min(((td.water||0)/8)*100,100);
+  const reqW=WATCH_ITEMS.filter(x=>x.req).length;
+  const doneW=(td.watch||[]).filter(id=>WATCH_ITEMS.find(x=>x.id===id&&x.req)).length;
+  const watch=Math.min((doneW/reqW)*100,100);
+  return{move,eat,drink,watch};
+}
+function renderPillars(){
+  const{move,eat,drink,watch}=getPillarScores();
+  [['move',move],['eat',eat],['drink',drink],['watch',watch]].forEach(([k,v])=>{
+    document.getElementById('pp-'+k).textContent=Math.round(v)+'%';
+    document.getElementById('pf-'+k).style.width=v+'%';
+    document.getElementById('pr-'+k).classList.toggle('done',v>=100);
+  });
+}
+function checkAlert(){
+  const{move,drink,eat,watch}=getPillarScores();
+  const bar=document.getElementById('alertBar'),t=document.getElementById('alertTitle'),c=document.getElementById('alertCta');
+  if(move===0){t.textContent='Your workout awaits — log it now';c.onclick=()=>goScreen('workout',1);bar.style.display='flex';return;}
+  if(drink<100){t.textContent='Drink your water — '+Math.round(S.td().water)+'/8 glasses';c.onclick=()=>goScreen('fuel',2);bar.style.display='flex';return;}
+  if(eat<50){t.textContent='Log your meals — food is fuel';c.onclick=()=>{goScreen('fuel',2);setTimeout(()=>openModal('mealModal'),300);};bar.style.display='flex';return;}
+  if(watch<100){t.textContent='Watch healthy content — feed your mind';c.onclick=()=>goScreen('fuel',2);bar.style.display='flex';return;}
+  bar.style.display='none';
+}
+
+/* ══════════ LOCK GATE ══════════ */
+function openLock(){
+  const{move,eat,drink,watch}=getPillarScores();
+  const P=[{e:'🏋️',n:'Move — Log 3 workouts',v:move},{e:'🥗',n:'Eat — Log 4 meals',v:eat},{e:'💧',n:'Drink — 8 glasses',v:drink},{e:'👁️',n:'Watch — 3 healthy videos',v:watch}];
+  document.getElementById('lgPills').innerHTML=P.map(p=>`<div class="lg-pill ${p.v>=100?'done':''}"><span class="lg-pill-icon">${p.e}</span><span class="lg-pill-name">${p.n}</span><span class="lg-pill-status">${p.v>=100?'✓ Done':Math.round(p.v)+'%'}</span></div>`).join('');
+  if(P.every(p=>p.v>=100)){toast('🏆 All pillars complete! You are extraordinary.');return;}
+  document.getElementById('lockGate').classList.add('open');
+}
+function closeLock(){document.getElementById('lockGate').classList.remove('open');}
+
+/* ══════════ STREAK ══════════ */
+function updateStreak(){
+  const today=S.today();const s=S.streak();
+  if(s.last!==today){const y=new Date();y.setDate(y.getDate()-1);s.count=s.last===y.toDateString()?s.count+1:1;s.last=today;S.set('streak',s);}
+  renderStreak();
+}
+function renderStreak(){
+  const s=S.streak();
+  document.getElementById('hqStreak').textContent=s.count;
+  document.getElementById('scQuote').textContent='"'+STREAK_Q[s.count%STREAK_Q.length]+'"';
+  const today=new Date().getDay();
+  document.getElementById('scDays').innerHTML=Array.from({length:7},(_,i)=>{
+    const isToday=i===(today===0?6:today-1);
+    const active=!isToday&&i<=(today===0?6:today-1)&&i>=(today===0?6:today-1)-(s.count-1);
+    return`<div class="sc-day ${isToday?'today':active?'done':''}"></div>`;
+  }).join('');
+}
+function updateHQNums(){
+  const td=S.td();
+  document.getElementById('hqWorkouts').textContent=(td.workouts||[]).length;
+  document.getElementById('hqSteps').textContent=(td.steps||0).toLocaleString();
+  document.getElementById('hqWater').textContent=(td.water||0);
+  document.getElementById('hqCal').textContent=(td.calIn||0);
+}
+function renderMoto(){renderHQThought();}
+
+/* ══════════ DAILY THOUGHTS ══════════ */
+function renderLifeTabs(){
+  document.getElementById('lifeTabs').innerHTML=LIFE_CATS.map(c=>`<div class="lct ${c.key===currentCatKey?'active':''}" onclick="setLifeCat('${c.key}')">${c.icon} ${c.label}</div>`).join('');
+}
+function setLifeCat(key){
+  currentCatKey=key;currentThoughtIdx=0;
+  renderLifeTabs();renderCurrentThought();
+}
+function renderCurrentThought(){
+  const cat=LIFE_CATS.find(c=>c.key===currentCatKey);
+  if(!cat)return;
+  // Check if user has imported thoughts for this category or use built-in
+  const allThoughts=getAllThoughtsForCat(cat);
+  currentThoughtIdx=currentThoughtIdx%allThoughts.length;
+  const t=allThoughts[currentThoughtIdx];
+  document.getElementById('tpIcon').textContent=cat.icon;
+  document.getElementById('tpCatName').textContent=cat.label;
+  document.getElementById('tpQuote').textContent=typeof t==='string'?'"'+t+'"':'\"'+t.q+'\"';
+  document.getElementById('tpIntention').textContent=typeof t==='string'?'Reflect on this thought today.':t.i;
+}
+function getAllThoughtsForCat(cat){
+  const builtIn=cat.thoughts;
+  const imported=S.imported().filter(x=>x.cat===cat.key);
+  return imported.length>0?[...builtIn,...imported.map(x=>x.text)]:builtIn;
+}
+function refreshCatThought(){
+  const cat=LIFE_CATS.find(c=>c.key===currentCatKey);
+  const all=getAllThoughtsForCat(cat);
+  currentThoughtIdx=(currentThoughtIdx+1)%all.length;
+  renderCurrentThought();
+}
+function getRandomThought(){
+  const cat=LIFE_CATS[Math.floor(Math.random()*LIFE_CATS.length)];
+  const all=getAllThoughtsForCat(cat);
+  const t=all[Math.floor(Math.random()*all.length)];
+  return{cat,text:typeof t==='string'?t:t.q,icon:cat.icon};
+}
+function renderHQThought(){
+  const{cat,text,icon}=getRandomThought();
+  document.getElementById('todIcon').textContent=icon;
+  document.getElementById('todCat').textContent=cat.label.toUpperCase();
+  document.getElementById('todQuote').textContent='"'+text+'"';
+}
+function refreshHQThought(){renderHQThought();}
+function previewAsReminder(){
+  const cat=LIFE_CATS.find(c=>c.key===currentCatKey);
+  const all=getAllThoughtsForCat(cat);
+  const t=all[currentThoughtIdx%all.length];
+  const text=typeof t==='string'?t:t.q;
+  showNotif(cat.icon+' '+cat.label,text);
+  toast('Preview shown above ↑');
+}
+
+/* ══════════ REMINDERS ══════════ */
+function loadReminderStates(){
+  const r=S.reminders();
+  ['morning','midday','evening','custom'].forEach(k=>{
+    const el=document.getElementById('tog-'+k);
+    if(el){el.checked=r[k]||false;document.getElementById('rc-'+k).classList.toggle('on',r[k]||false);}
+  });
+  if(r.customH)document.getElementById('customHr').value=r.customH;
+  if(r.customM)document.getElementById('customMin').value=r.customM;
+  if(r.customAmpm)document.getElementById('customAmpm').value=r.customAmpm;
+  if(r.custom&&r.customH)document.getElementById('customTimeSub').textContent=r.customH+':'+r.customM+' '+r.customAmpm+' · Daily';
+}
+function toggleReminder(key,val){
+  const r=S.reminders();r[key]=val;S.set('reminders',r);
+  document.getElementById('rc-'+key).classList.toggle('on',val);
+  if(val)scheduleReminders();
+  toast(val?'🔔 '+key.charAt(0).toUpperCase()+key.slice(1)+' reminder enabled':'Reminder disabled');
+}
+function saveCustomTime(){
+  const h=document.getElementById('customHr').value||'07';
+  const m=document.getElementById('customMin').value||'00';
+  const ap=document.getElementById('customAmpm').value;
+  const r=S.reminders();r.customH=h;r.customM=m.toString().padStart(2,'0');r.customAmpm=ap;S.set('reminders',r);
+  document.getElementById('customTimeSub').textContent=h+':'+m.toString().padStart(2,'0')+' '+ap+' · Daily';
+  toast('⏰ Custom time saved: '+h+':'+m.toString().padStart(2,'0')+' '+ap);
+  scheduleReminders();
+}
+function scheduleReminders(){
+  const r=S.reminders();
+  const times={morning:'08:00',midday:'13:00',evening:'21:30'};
+  // Show simulated notification on page load if within 5 min of a reminder time
+  const now=new Date();const nowStr=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  Object.entries(times).forEach(([k,t])=>{if(r[k]&&t===nowStr)fireReminder(k);});
+  // Set setTimeout for next occurrences
+  Object.entries(times).forEach(([k,t])=>{
+    if(!r[k])return;
+    const[th,tm]=t.split(':').map(Number);
+    const next=new Date();next.setHours(th,tm,0,0);
+    if(next<=now)next.setDate(next.getDate()+1);
+    const ms=next-now;
+    if(ms<86400000)setTimeout(()=>fireReminder(k),ms);
+  });
+  // Custom reminder
+  if(r.custom&&r.customH){
+    let h=parseInt(r.customH);const m=parseInt(r.customM)||0;
+    if(r.customAmpm==='PM'&&h!==12)h+=12;if(r.customAmpm==='AM'&&h===12)h=0;
+    const next=new Date();next.setHours(h,m,0,0);
+    if(next<=now)next.setDate(next.getDate()+1);
+    const ms=next-now;
+    if(ms<86400000)setTimeout(()=>fireReminder('custom'),ms);
+  }
+}
+function fireReminder(key){
+  const labels={morning:'Good morning',midday:'Midday pause',evening:'Evening reflection',custom:'Your reminder'};
+  const{text,icon}=getRandomThought();
+  showNotif(labels[key]+' ✦',text);
+  // Browser notification
+  if(Notification&&Notification.permission==='granted'){
+    new Notification('ZENVRA · '+labels[key],{body:'"'+text+'"',icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌿</text></svg>'});
+  }
+}
+function showNotif(title,sub){
+  document.getElementById('notifTitle').textContent='"'+sub+'"';
+  document.getElementById('notifSub').textContent=title;
+  const n=document.getElementById('notif');n.classList.add('show');
+  clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('show'),5000);
+}
+function dismissNotif(){document.getElementById('notif').classList.remove('show');}
+
+/* Request notification permission */
+if(Notification&&Notification.permission==='default'){
+  setTimeout(()=>Notification.requestPermission(),3000);
+}
+
+/* ══════════ IMPORT THOUGHTS ══════════ */
+function switchImportTab(t){
+  document.getElementById('itab-text').classList.toggle('active',t==='text');
+  document.getElementById('itab-file').classList.toggle('active',t==='file');
+  document.getElementById('import-text-panel').style.display=t==='text'?'block':'none';
+  document.getElementById('import-file-panel').style.display=t==='file'?'block':'none';
+}
+function previewImport(){
+  const raw=document.getElementById('importBox').value.trim();
+  if(!raw){document.getElementById('importPreviewCount').textContent='';return;}
+  const items=raw.split(';').map(s=>s.trim()).filter(s=>s.length>3);
+  document.getElementById('importPreviewCount').textContent=items.length+' thought'+(items.length!==1?'s':'')+' detected. Click Import to add them.';
+}
+function importFromText(){
+  const raw=document.getElementById('importBox').value.trim();
+  if(!raw){toast('Paste some thoughts first');return;}
+  const items=raw.split(';').map(s=>s.trim()).filter(s=>s.length>3);
+  if(!items.length){toast('No valid thoughts found — separate with ;');return;}
+  const existing=S.imported();
+  items.forEach(text=>existing.push({id:Date.now()+'_'+Math.random(),text,cat:currentCatKey}));
+  S.set('imported',existing);
+  document.getElementById('importBox').value='';
+  document.getElementById('importPreviewCount').textContent='';
+  renderImportedList();renderCurrentThought();
+  toast('✦ '+items.length+' thought'+(items.length!==1?'s':'')+' imported!');
+}
+function importFromFile(input){
+  const file=input.files[0];
+  if(!file){return;}
+  document.getElementById('fileStatus').textContent='Reading '+file.name+'…';
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const raw=e.target.result;
+    // Support both newlines and semicolons
+    const items=raw.replace(/\n/g,';').split(';').map(s=>s.trim()).filter(s=>s.length>3);
+    if(!items.length){document.getElementById('fileStatus').textContent='No thoughts found in file.';return;}
+    const existing=S.imported();
+    items.forEach(text=>existing.push({id:Date.now()+'_'+Math.random(),text,cat:currentCatKey}));
+    S.set('imported',existing);
+    renderImportedList();renderCurrentThought();
+    document.getElementById('fileStatus').textContent='✦ '+items.length+' thought'+(items.length!==1?'s':'')+' imported from '+file.name;
+    toast('✦ '+items.length+' thoughts imported from file!');
+    input.value='';
+  };
+  reader.readAsText(file);
+}
+function renderImportedList(){
+  const imported=S.imported();
+  document.getElementById('importedCount').textContent=imported.length;
+  const el=document.getElementById('importedList');
+  if(!imported.length){el.innerHTML=`<div style="text-align:center;padding:20px;color:var(--muted);font-family:var(--ff-d);font-size:16px;font-style:italic;">No imported thoughts yet.<br>Add your own.</div>`;return;}
+  el.innerHTML=imported.map((item,i)=>`<div class="irow"><div class="irow-num">${i+1}</div><div class="irow-text">"${item.text}"<br><span style="font-family:var(--ff-t);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block;">${LIFE_CATS.find(c=>c.key===item.cat)?.icon||'✦'} ${item.cat}</span></div><span class="irow-del" onclick="deleteImported('${item.id}')">✕</span></div>`).join('');
+}
+function deleteImported(id){
+  S.set('imported',S.imported().filter(x=>x.id!==id));
+  renderImportedList();renderCurrentThought();
+  toast('Thought removed');
+}
+function clearAllImported(){
+  if(!S.imported().length)return;
+  S.set('imported',[]);renderImportedList();renderCurrentThought();
+  toast('All imported thoughts cleared');
+}
+
+/* ══════════ PRs ══════════ */
+function updatePRsFromLog(id,data){
+  const p=S.prs();const n=k=>parseInt(data[k])||0;
+  if(id==='pushup'&&n('Reps / Set')>p.pushup)p.pushup=n('Reps / Set');
+  if(id==='pullup'&&n('Reps / Set')>p.pullup)p.pullup=n('Reps / Set');
+  if(id==='bench'&&n('Weight')>(p.bench||0))p.bench=n('Weight');
+  if(id==='deadlift'&&n('Weight')>(p.deadlift||0))p.deadlift=n('Weight');
+  if(id==='squat-bar'&&n('Weight')>(p.squat||0))p.squat=n('Weight');
+  if(id==='plank'&&n('Hold')>p.plank)p.plank=n('Hold');
+  S.set('prs',p);
+}
+function saveMetrics(){
+  const m={weight:parseFloat(document.getElementById('mmW').value)||S.metrics().weight,height:parseFloat(document.getElementById('mmH').value)||S.metrics().height,bf:parseFloat(document.getElementById('mmBF').value)||S.metrics().bf,hr:parseInt(document.getElementById('mmHR').value)||S.metrics().hr};
+  S.set('metrics',m);closeModal('metricsModal');renderMetrics();toast('Metrics updated ✦');
+}
+
+/* ══════════ PROGRESS ══════════ */
+function renderProgress(){
+  renderHeatmap();renderMetrics();renderChart();renderPRRows();renderMilestones();
+}
+function renderHeatmap(){
+  const days=['M','T','W','T','F','S','S'];const today=new Date().getDay();
+  document.getElementById('heatmapRow').innerHTML=days.map((d,i)=>{
+    const isToday=i===(today===0?6:today-1);
+    const lvl=isToday?[getPillarScores().move,getPillarScores().eat,getPillarScores().drink,getPillarScores().watch].filter(v=>v>=100).length:Math.floor(Math.random()*5);
+    return`<div class="hm-col"><div class="hm-cell hm${Math.min(lvl,4)}">${lvl===4?'🔥':''}</div><div class="hm-lbl">${d}</div></div>`;
+  }).join('');
+}
+function renderMetrics(){
+  const m=S.metrics();const bmi=(m.weight/(m.height/100)**2).toFixed(1);
+  document.getElementById('metricsGrid').innerHTML=[{v:m.weight+'kg',l:'Weight'},{v:m.height+'cm',l:'Height'},{v:bmi,l:'BMI'},{v:m.bf+'%',l:'Body Fat'},{v:m.hr,l:'Rest HR'},{v:'—',l:'VO2 Max'}].map(s=>`<div class="mcard"><div class="mv">${s.v}</div><div class="ml">${s.l}</div></div>`).join('');
+}
+function renderChart(){
+  const vals=[42,78,55,90,63,100,Math.floor(Math.random()*80+20)];
+  const days=['M','T','W','T','F','S','S'];const mx=Math.max(...vals);const ti=new Date().getDay()===0?6:new Date().getDay()-1;
+  document.getElementById('chartBars').innerHTML=vals.map((v,i)=>`<div class="chart-bar" style="height:${(v/mx)*86}px;background:${i===ti?'var(--gold)':'rgba(184,147,90,.28)'};border-radius:5px 5px 0 0;flex:1;min-height:4px;"></div>`).join('');
+  document.getElementById('chartDays').innerHTML=days.map(d=>`<div class="chart-day">${d}</div>`).join('');
+}
+function renderPRRows(){
+  const p=S.prs();
+  const records=[{e:'💪',n:'Max Push-Ups',sub:'Most consecutive reps',v:p.pushup||'—'},{e:'🔝',n:'Max Pull-Ups',sub:'Most consecutive reps',v:p.pullup||'—'},{e:'🏋️',n:'Bench Press',sub:'Heaviest weight lifted',v:p.bench?p.bench+'kg':'—'},{e:'⚓',n:'Deadlift',sub:'Heaviest weight lifted',v:p.deadlift?p.deadlift+'kg':'—'},{e:'🔱',n:'Barbell Squat',sub:'Heaviest weight lifted',v:p.squat?p.squat+'kg':'—'},{e:'🧱',n:'Plank Hold',sub:'Longest duration',v:p.plank?p.plank+'s':'—'},{e:'🏃',n:'Best Step Day',sub:'Most steps in one day',v:(p.steps||0).toLocaleString()}];
+  document.getElementById('prRows').innerHTML=records.map(r=>`<div class="pr-row"><div class="pr-ico">${r.e}</div><div class="pr-body"><div class="pr-name">${r.n}</div><div class="pr-sub">${r.sub}</div></div><div class="pr-val">${r.v}</div></div>`).join('');
+}
+function renderMilestones(){
+  const p=S.prs();const td=S.td();
+  const ms=[{e:'🏆',n:'100-Rep Push-Up Day',sub:'Max push-ups in one session',prog:Math.min(p.pushup||0,100),goal:100,unit:'reps'},{e:'🥇',n:'10,000 Step Day',sub:'Daily step challenge',prog:Math.min(td.steps||0,10000),goal:10000,unit:'steps'},{e:'💧',n:'Perfect Hydration',sub:'8 glasses in a day',prog:Math.min(td.water||0,8),goal:8,unit:'glasses'},{e:'🦾',n:'100kg Deadlift',sub:'Strength milestone',prog:Math.min(p.deadlift||0,100),goal:100,unit:'kg'},{e:'🔥',n:'21-Day Streak',sub:'Three consecutive weeks',prog:Math.min(S.streak().count,21),goal:21,unit:'days'}];
+  document.getElementById('msRows').innerHTML=ms.map(m=>`<div class="ms-card"><div class="ms-top"><div class="ms-left"><div class="ms-icon">${m.e}</div><div><div class="ms-name">${m.n}</div><div class="ms-sub">${m.prog.toLocaleString()} / ${m.goal.toLocaleString()} ${m.unit}</div></div></div><div class="ms-pct">${Math.round((m.prog/m.goal)*100)}%</div></div><div class="pbar" style="height:5px;"><div class="pbar-fill" style="width:${(m.prog/m.goal)*100}%;background:linear-gradient(90deg,var(--ember),var(--gold));"></div></div></div>`).join('');
+}
+
+/* ══════════ MODAL HELPERS ══════════ */
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2700);}
+
+/* ══════════ BOOT ══════════ */
+init();
+// Show a simulated morning notification after 2s on load
+setTimeout(()=>{
+  const{text,icon,cat}=getRandomThought();
+  showNotif(icon+' '+cat.label+' thought',text);
+},2200);
+</script>
+</body>
+</html>
